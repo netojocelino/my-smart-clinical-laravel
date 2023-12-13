@@ -17,6 +17,8 @@ class TodoItemController extends Controller
 
     public function index() {}
 
+    public function create() {}
+
     public function store (StoreTodoItemRequest $request): JsonResponse
     {
         try {
@@ -29,4 +31,17 @@ class TodoItemController extends Controller
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function show() {}
+
+    public function edit() {}
+
+    public function update() {}
+
+    public function destroy() {}
+
+    public function markAsDone (int $id)
+    {
+    }
+
 }
