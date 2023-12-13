@@ -23,7 +23,7 @@ class StoreTodoItemRequest extends FormRequest
     {
         return [
             'title'        => 'required|string|max:255',
-            'description'  => 'string|max:21000',
+            'description'  => 'nullable|string|max:21000',
             'status'       => 'string|in:pendent,done',
         ];
     }

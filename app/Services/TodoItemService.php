@@ -16,6 +16,11 @@ class TodoItemService
 
     public function store (array $data)
     {
-        return $this->todoItem->create($data);
+        return $this->todoItem->create([
+            'title'        => data_get($data, 'title', ''),
+            'description'  => data_get($data, 'description', '') ?: '',
+            'status'       => 'pendent',
+            'completed_at' => null,
+        ]);
     }
 }
