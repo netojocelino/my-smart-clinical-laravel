@@ -17,7 +17,15 @@ class TodoItemController extends Controller
         $this->todoItemService = new TodoItemService;
     }
 
-    public function index() {}
+    public function index()
+    {
+        $pendent = $this->todoItemService->listPendent();
+        $completed = $this->todoItemService->listCompleted();
+        return view('todo-items.index', compact([
+            'pendent',
+            'completed',
+        ]));
+    }
 
     public function create() {}
 

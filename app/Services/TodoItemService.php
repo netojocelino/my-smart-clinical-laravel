@@ -16,6 +16,16 @@ class TodoItemService
         $this->todoItem = new TodoItem();
     }
 
+    public function listPendent ()
+    {
+        return $this->todoItem->wherePendent()->get();
+    }
+
+    public function listCompleted ()
+    {
+        return $this->todoItem->whereDone()->get();
+    }
+
     public function store (array $data)
     {
         return $this->todoItem->create([
