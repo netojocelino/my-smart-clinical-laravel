@@ -42,6 +42,14 @@ class TodoItemController extends Controller
 
     public function markAsDone (int $id)
     {
+        $todoItem = \App\Models\TodoItem::find($id);
+
+        $todoItem->update([
+            'status'       => \App\Models\TodoItem::STATUS_DONE,
+            'completed_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return response()->json([], JsonResponse::HTTP_OK);
     }
 
 }
