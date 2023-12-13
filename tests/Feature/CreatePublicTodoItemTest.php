@@ -11,11 +11,10 @@ class CreatePublicTodoItemTest extends TestCase
     public function testShouldCreateAItemForValidData(): void
     {
         // Arrange
-        $data = [
-            'title'       => 'My first task',
-            'description' => 'This is my first task with some description',
-            'status'      => 'pendent',
-        ];
+        $data = TodoItem::factory()->make([
+            'status'       => 'pendent',
+            'completed_at' => null,
+        ])->toArray();
 
         // act
         $response = $this->post(route('app.todo.item.store', $data));
