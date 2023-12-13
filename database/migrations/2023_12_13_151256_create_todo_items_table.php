@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            $table->text('description')->default('');
+            $table->text('description');
             $table->string('status')->default('pendent');
             $table->date('completed_at')->nullable()->default(null);
 
