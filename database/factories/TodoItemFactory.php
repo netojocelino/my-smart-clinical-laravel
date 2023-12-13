@@ -19,7 +19,10 @@ class TodoItemFactory extends Factory
         return [
             'title'        => $this->faker->word(),
             'description'  => $this->faker->text(),
-            'status'       => $this->faker->randomElement(['pendent', 'done']),
+            'status'       => $this->faker->randomElement([
+                \App\Models\TodoItem::STATUS_PENDENT,
+                \App\Models\TodoItem::STATUS_DONE,
+            ]),
             'completed_at' => $this->faker->randomElement([
                 null,
                 $this->faker->dateTime(),

@@ -22,4 +22,9 @@ class TodoItem extends Model
     protected $casts = [
         'completed_at' => 'datetime',
     ];
+
+    public function getIsCompleteAttribute ()
+    {
+        return $this->status == self::STATUS_DONE;
+    }
 }

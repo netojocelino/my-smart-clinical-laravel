@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\TodoItemAlreadyDoneException;
+use App\Exceptions\TodoItemNotFoundException;
 use App\Http\Requests\StoreTodoItemRequest;
 use App\Services\TodoItemService;
 use Illuminate\Http\JsonResponse;
@@ -42,14 +44,19 @@ class TodoItemController extends Controller
 
     public function markAsDone (int $id)
     {
-        $todoItem = \App\Models\TodoItem::find($id);
+        try {
+            $this->todoItemService->markAsDone($id);
 
-        $todoItem->update([
-            'status'       => \App\Models\TodoItem::STATUS_DONE,
-            'completed_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        return response()->json([], JsonResponse::HTTP_OK);
+            return response()->json([], JsonResponse::HTTP_OK);
+        } catch (TodoItemNotFoundException $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], JsonResponse::HTTP_NOT_FOUND);
+        } catch (TodoItemAlreadyDoneException $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
 }

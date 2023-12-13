@@ -14,12 +14,12 @@ class MarkAsDonePublicTodoItemTest extends TestCase
     {
         // Arrange
         $item = TodoItem::factory()->create([
-            'status'       => 'pendent',
+            'status'       => TodoItem::STATUS_PENDENT,
             'completed_at' => null,
         ]);
         $this->assertDatabaseHas(TodoItem::class, [
             'id'          => $item->getKey(),
-            'status'      => 'pendent',
+            'status'      => TodoItem::STATUS_PENDENT,
         ]);
 
         // act
@@ -31,12 +31,49 @@ class MarkAsDonePublicTodoItemTest extends TestCase
         $response->assertStatus(JsonResponse::HTTP_OK);
         $this->assertDatabaseHas(TodoItem::class, [
             'id'          => $item->getKey(),
-            'status'      => 'done',
+            'status'      => TodoItem::STATUS_DONE,
         ]);
         $this->assertDatabaseMissing(TodoItem::class, [
             'id'           => $item->getKey(),
             'completed_at' => null,
             'status'       => $item->status,
+        ]);
+    }
+
+    public function testShouldReturnNotFoundWhenTriedToMarkANotFoundItemAsComepleted(): void
+    {
+        // Arrange
+        $id = 5000;
+
+        // act
+        $response = $this->post(route('app.todo.item.mark-done', compact('id')));
+
+        // assert
+        $response->assertStatus(JsonResponse::HTTP_NOT_FOUND);
+        $this->assertDatabaseMissing(TodoItem::class, [
+            'id'           => $id,
+        ]);
+    }
+
+    public function testShouldReturnUnprocessableWhenTriedToMarkACompletedTodoItem(): void
+    {
+        // Arrange
+        $item = TodoItem::factory()->create([
+            'status'       => TodoItem::STATUS_DONE,
+            'completed_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        // act
+        $response = $this->post(route('app.todo.item.mark-done', [
+            'id' => $item->id,
+        ]));
+
+        // assert
+        $response->assertStatus(JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        $this->assertDatabaseHas(TodoItem::class, [
+            'id'           => $item->id,
+            'status'       => $item->status,
+            'completed_at' => $item->completed_at,
         ]);
     }
 }
