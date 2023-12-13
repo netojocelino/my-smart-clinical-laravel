@@ -15,11 +15,14 @@ Cadastro de Todos:
 
 * Implemente um formulário para adicionar novas tarefas à lista.
 Os campos obrigatórios devem incluir título e descrição da tarefa.
-Atualização de Status:
+
+### Atualização de Status:
 
 * Permita a atualização do status de uma tarefa (marcar como concluída ou não concluída).
 Essa funcionalidade pode ser implementada por meio de botões na lista ou em uma página separada.
-Requisitos Técnicos:
+
+
+## Requisitos Técnicos:
 
 ### Utilização do Laravel:
 
