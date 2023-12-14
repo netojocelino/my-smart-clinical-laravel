@@ -45,10 +45,10 @@
                             >
 
                             <label class="flex flex-col font-normal dark:text-white text-slate-800">
-                                <span class="mb-2 text-sm">Tíulo</span>
+                                <span class="mb-2 text-sm">Título</span>
                                 <div class="relative">
                                     <input
-                                        class="border-w-6003 placeholder:text-w-4004 w-full rounded-lg border bg-transparent text-white focus:border-white h-10 p-[10px]"
+                                        class="border-w-6003 placeholder:text-w-4004 w-full rounded-lg border bg-transparent dark:text-white text-slate-800 focus:border-white h-10 p-[10px]"
                                         type="text"
                                         required
                                         name="title"
@@ -60,7 +60,7 @@
                                 <span class="mb-2 text-sm">Descrição</span>
                                 <div class="relative">
                                     <input
-                                        class="border-w-6003 placeholder:text-w-4004 w-full rounded-lg border bg-transparent text-white focus:border-white h-10 p-[10px]"
+                                        class="border-w-6003 placeholder:text-w-4004 w-full rounded-lg border bg-transparent dark:text-white text-slate-800 focus:border-white h-10 p-[10px]"
                                         type="text"
                                         required
                                         name="description"
@@ -74,7 +74,7 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button type="button" data-event-modal-active="" class="inline-flex w-full justify-center rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 sm:ml-3 sm:w-auto">{{ $continue }}</button>
-                    <button type="button" class="close-modal mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-inset hover:bg-red-500 sm:mt-0 sm:w-auto">{{ $cancel }}</button>
+                    <button type="button" class="close-modal mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-inset hover:bg-red-500 sm:mt-0 sm:w-auto">{{ $cancel }}</button>
                 </div>
             </div>
         </div>
