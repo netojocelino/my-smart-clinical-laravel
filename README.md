@@ -1,66 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><img src="./public/assets/media/my-smart-clinic.webp" width="400" alt="Logo"></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Lista de afazeres
 
-## About Laravel
+Projeto destino para o teste da My Smart Clinic de desenvolvedor back-end. A [descrição] pode ser vista no arquivo [TASK.md][descrição]
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Guia de instalação da aplicação
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Clonar o projeto
+    ```
+    $ git clone git@github.com:netojocelino/my-smart-clinical-laravel.git
+    $ cd my-smart-clinical-laravel
+    ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Realizar a instalação dos pacotes do [composer], caso instale pacotes de desenvolvimento é possível utilizar [Docker]
+    ```
+    $ composer install --no-dev # Para instalação apenas de pacotes de produção
+    $ composer install # Para instalação com pacotes de desenvolvimento
+    ```
 
-## Learning Laravel
+1. Criar o arquivo .env para determinar as variáveis de ambiente basta copiar o arquivo .env.example
+    ```
+    $ cp .env{.example,}
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Gerar a chave de configuração da aplicação
+    ```
+    $ php artisan key:generate
+    $ ./vendor/bin/sail artisan key:generate # Para execução utilizando sail (necessário [Docker])
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Realizar as migrações das tabelas
+    ```
+    $ php artisan migrate
+    $ ./vendor/bin/sail artisan migrate # Para execução utilizando sail (necessário [Docker])
+    ```
 
-## Laravel Sponsors
+1.  *(Opcional)* Realizar o preenchimento com alguns dados de tarefas
+    ```
+    $ php artisan db:seed
+    $ ./vendor/bin/sail artisan db:seed # Para execução utilizando sail (necessário [Docker])
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1.  Executar a aplicação
+    ```
+    $ php artisan serve # Para execução de produção
+    $ ./vendor/bin/sail up # Para execução utilizando sail (necessário [Docker])
+    ```
 
-### Premium Partners
+    O aplicativo estará disponível na página http://localhost:8080.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+1.  *(Opcional)* Executar testes, quando está com pacote de desenvolvimento
+    ```
+    $ php artisan test --testdox
+    $ ./vendor/bin/sail artisan test --testdox # Para execução utilizando sail (necessário [Docker])
+    ```
 
-## Contributing
+## Decisões de tecnologias
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Para desenvolvimento foi escolhido o uso de [Tailwind CSS] para o desenvolvimento da interface gráfica, por praticidade de utilizar as classes de CSS invés de criar arquivos de CSS.
 
-## Code of Conduct
+Para uma possível melhoria na aplicação, foi realizado um redirecionamento para a página raiz do site direcionar para uma tela que listará todos os cartões públicos. Permitindo que seja adicionado uma tela de informações sobre o projeto ou até outras informações.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Como [requisito técnico] foi definido utilizar Laravel, então foi utilizado a [versão 10 do Laravel].
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Tela
 
-## License
+| Tela em Modo Escuro | Tela em Modo Claro |
+| - | - |
+| ![Tela em Modo Escuro](.github/dark-mode.png) | ![Tela em Modo Claro](.github/light-mode.png) |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[composer]: https://getcomposer.org/
+[Docker]: https://docs.docker.com/
+[requisito técnico]: .github/TASK.md#utilização-do-laravel
+[descrição]: .github/TASK.md
+[Tailwind CSS]: https://tailwindcss.com/
+[versão 10 do Laravel]: https://laravel.com/docs/10.x/
