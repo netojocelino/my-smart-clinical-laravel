@@ -146,7 +146,7 @@
                                 $card
                                     .replace('$TEMPLATE_TITLE$', _json.title)
                                     .replace('$TEMPLATE_DESCRIPTION$', _json.description)
-                                    .replace('$TEMPLATE_KEY$', _json.id)
+                                    .replaceAll('$TEMPLATE_KEY$', _json.id)
                             }${$column.innerHTML}`
 
                             $modal.classList.add('hidden')
