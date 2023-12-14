@@ -44,7 +44,7 @@ class CreatePublicTodoItemTest extends TestCase
         // assert
         $response->assertStatus(JsonResponse::HTTP_FOUND);
         $response->assertSessionHasErrors([
-            'title' => 'The title field is required.',
+            'title' => __('validation.required', ['attribute' => 'title', ]),
         ]);
         $this->assertDatabaseMissing(TodoItem::class, [
             'title'        => data_get($data, 'title'),
