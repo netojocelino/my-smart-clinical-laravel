@@ -46,7 +46,7 @@ class TodoItemService
         $todoItem = $this->todoItem->find($id);
 
         if (!$todoItem) {
-            throw new TodoItemNotFoundException('Todo Item was not found');
+            throw new TodoItemNotFoundException(__('messages.not_found'));
         }
         return $todoItem;
     }
@@ -56,7 +56,7 @@ class TodoItemService
         $todoItem = $this->findOrFail($id);
 
         if ($todoItem->isComplete) {
-            throw new TodoItemAlreadyDoneException('Todo Item it\'s already completed');
+            throw new TodoItemAlreadyDoneException(__('messages.already_competed'));
         }
 
         $todoItem->update([
@@ -72,7 +72,7 @@ class TodoItemService
         $todoItem = $this->findOrFail($id);
 
         if (!$todoItem->isComplete) {
-            throw new TodoItemAlreadyDoneException('Todo Item it\'s already pendent');
+            throw new TodoItemAlreadyDoneException(__('messages.already_pendent'));
         }
 
         $todoItem->update([
