@@ -67,4 +67,21 @@ class TodoItemController extends Controller
         }
     }
 
+    public function markAsPendent (int $id)
+    {
+        try {
+            $this->todoItemService->markAsPendent($id);
+
+            return response()->json([], JsonResponse::HTTP_OK);
+        } catch (TodoItemNotFoundException $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], JsonResponse::HTTP_NOT_FOUND);
+        } catch (TodoItemAlreadyDoneException $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
+
 }

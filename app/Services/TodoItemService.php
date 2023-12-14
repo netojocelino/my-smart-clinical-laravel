@@ -66,4 +66,21 @@ class TodoItemService
 
         return $todoItem;
     }
+
+    public function markAsPendent(int $id)
+    {
+        $todoItem = $this->findOrFail($id);
+
+        if (!$todoItem->isComplete) {
+            throw new TodoItemAlreadyDoneException('Todo Item it\'s already pendent');
+        }
+
+        $todoItem->update([
+            'status'       => TodoItem::STATUS_PENDENT,
+            'completed_at' => null,
+        ]);
+
+        return $todoItem;
+    }
+
 }

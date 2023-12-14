@@ -14,7 +14,7 @@
 
         <button
             type="button"
-            class="px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-none shadow-sm w-half"
+            class="px-4 py-2 font-semibold text-sm bg-sky-500 hover:bg-sky-400 text-white rounded-none shadow-sm w-half"
             data-open-modal="create_task"
             data-event-modal="{{ route('app.todo.item.store') }}"
         >
@@ -53,6 +53,7 @@
                 title="{{ $item->title }}"
                 date="{{ optional($item->completed_at)->format('d-m-Y  \à\s H:i') }}"
                 description="{{ $item->ShortDescription }}"
+                action="mark.as.pendent"
                 key="{{ $item->getKey() }}"
             />
         @empty
@@ -62,6 +63,7 @@
 </div>
 
 <x-cards.modal id="mark.as.done" />
+<x-cards.modal id="mark.as.pendent" />
 
 <x-cards.form-modal
     id="create_task"
@@ -84,6 +86,7 @@
 function onLoad()
 {
     const $markAsDoneBtns = document.querySelectorAll('[data-action="mark.as.done"]')
+    const $markAsPendentBtns = document.querySelectorAll('[data-action="mark.as.pendent"]')
 
     function MarkAsDoneAction ()
     {
@@ -103,7 +106,26 @@ function onLoad()
         $btn.addEventListener('click', MarkAsDoneAction)
     })
 
+
+    function MarkAsPendentAction ()
+    {
+        const $prompt = document.getElementById(this.dataset.action)
+        $prompt.classList.remove('hidden')
+        const $key = this.dataset.key
+        // TODO: replace workaround
+        const _url = "{{ route('app.todo.item.mark-pendent', ['id' => 0]) }}".split('/0')[0] + '/' + $key
+
+        const $action = $prompt.querySelector(`[data-event-modal-active]`)
+        $action.dataset.eventModalActive = _url
+        $prompt.dataset.key = $key
+    }
+
+    Array.from($markAsPendentBtns).forEach($btn => {
+        $btn.removeEventListener('click', MarkAsPendentAction)
+        $btn.addEventListener('click', MarkAsPendentAction)
+    })
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     onLoad()
 })

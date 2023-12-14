@@ -30,9 +30,14 @@
         </div>
 
         @if ($action === 'mark.as.done')
-        <button type="button" class="px-4 py-2 font-semibold text-sm text-white rounded-none shadow-sm bg-lime-600 flex gap-2" data-key="{{ $key ?? '' }}" data-action="{{$action}}">
+        <button type="button" class="px-4 py-2 font-semibold text-sm text-white rounded-none shadow-sm bg-lime-600 hover:bg-lime-500 flex gap-2" data-key="{{ $key ?? '' }}" data-action="{{$action}}">
             <x-icons.svg type="done" />
             Concluir
+        </button>
+        @elseif($action === 'mark.as.pendent')
+        <button type="button" class="px-4 py-2 font-semibold text-sm text-white drop-shadow-md shadow-red rounded-none shadow-sm bg-amber-400 hover:bg-amber-300 flex gap-2" data-key="{{ $key ?? '' }}" data-action="{{$action}}">
+            <x-icons.svg type="wait" />
+            Pendente
         </button>
         @endif
 
