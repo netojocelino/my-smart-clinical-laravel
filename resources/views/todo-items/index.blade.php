@@ -27,7 +27,7 @@
             <x-cards.item
                 type="link"
                 title="{{ $item->title }}"
-                description="{{ $item->ShortDescription }}"
+                description="{{ $item->description }}"
                 action="mark.as.done"
                 key="{{ $item->getKey() }}"
             />
@@ -52,7 +52,7 @@
                 type="block"
                 title="{{ $item->title }}"
                 date="{{ optional($item->completed_at)->format('d-m-Y  \à\s H:i') }}"
-                description="{{ $item->ShortDescription }}"
+                description="{{ $item->description }}"
                 action="mark.as.pendent"
                 key="{{ $item->getKey() }}"
             />
@@ -87,6 +87,7 @@ function onLoad()
 {
     const $markAsDoneBtns = document.querySelectorAll('[data-action="mark.as.done"]')
     const $markAsPendentBtns = document.querySelectorAll('[data-action="mark.as.pendent"]')
+    const $maxText = document.querySelectorAll('[data-max-text]')
 
     function MarkAsDoneAction ()
     {
@@ -106,6 +107,24 @@ function onLoad()
         $btn.addEventListener('click', MarkAsDoneAction)
     })
 
+    function wrapTextFn () {
+        const $p = this.parentNode.querySelector('p')
+        $p.classList.toggle('wrap-text')
+        const inverseText = this.innerText === 'Mais' ? 'Menos' : 'Mais'
+        this.innerText = inverseText
+    }
+
+    Array.from($maxText).forEach($item => {
+        const size = $item.innerText.length
+        if (size > 60)
+        {
+            $item.classList.add('wrap-text')
+            const $wrap = $item.parentNode.querySelector('[data-wrap]')
+            $wrap.classList.remove('hidden')
+            $wrap.removeEventListener('click', wrapTextFn)
+            $wrap.addEventListener('click', wrapTextFn)
+        }
+    })
 
     function MarkAsPendentAction ()
     {

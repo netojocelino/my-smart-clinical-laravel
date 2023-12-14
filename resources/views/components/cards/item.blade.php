@@ -24,9 +24,14 @@
         @endif
 
         <div>
-            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed" data-max-text="">
                 {{ $description }}
             </p>
+            <button
+                type="button"
+                class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-md hidden my-2"
+                data-wrap=""
+            >Mais</button>
         </div>
 
         @if ($action === 'mark.as.done')
