@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\TodoItemAlreadyDoneException;
 use App\Exceptions\TodoItemNotFoundException;
 use App\Http\Requests\StoreTodoItemRequest;
+use App\Http\Resources\TodoItemHistory;
 use App\Services\TodoItemService;
 use Illuminate\Http\JsonResponse;
 
@@ -82,6 +83,14 @@ class TodoItemController extends Controller
                 'message' => $th->getMessage(),
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
+    }
+
+    public function getHistory (int $id)
+    {
+        $item = $this->todoItemService->find($id);
+        if (!$item || !$item->history) return response()->json([]);
+
+        return response()->json(TodoItemHistory::collection($item->history));
     }
 
 }

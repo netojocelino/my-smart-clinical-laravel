@@ -70,6 +70,12 @@
     title="Cadastrar tarefa"
 />
 
+<x-cards.history-modal
+    id="history_task"
+    title="Histórico da tarefa"
+    cencel="Fechar"
+/>
+
 <div name="template_card" class="hidden">
     <x-cards.item
         type="link"
@@ -88,6 +94,7 @@ function onLoad()
     const $markAsDoneBtns = document.querySelectorAll('[data-action="mark.as.done"]')
     const $markAsPendentBtns = document.querySelectorAll('[data-action="mark.as.pendent"]')
     const $maxText = document.querySelectorAll('[data-max-text]')
+    const $historyBtn = document.querySelectorAll('[data-history]:not([data-history="$TEMPLATE_KEY$"])')
 
     function MarkAsDoneAction ()
     {
@@ -142,6 +149,69 @@ function onLoad()
     Array.from($markAsPendentBtns).forEach($btn => {
         $btn.removeEventListener('click', MarkAsPendentAction)
         $btn.addEventListener('click', MarkAsPendentAction)
+    })
+
+    function ShowHistory ()
+    {
+        const $prompt = document.getElementById('history_task')
+        const $div = $prompt.querySelector('[name=history]')
+        $prompt.classList.remove('hidden')
+        const $key = this.dataset.history
+
+        // TODO: replace workaround
+        const _url = "{{ route('app.todo.item.history', ['id' => 0]) }}".split('/0')[0] + '/' + $key
+        $div.innerHTML = `<div><p><strong>Carrengando</strong></p></div>`
+
+        fetch(_url).then(async (response) => {
+            if (response.status != 200) {
+                alert('Ocorreu um erro')
+                return;
+            }
+            const _json = await response.json()
+
+
+            if (_json.length == 0) {
+                $div.innerHTML = `<div>
+                    <p>
+                        <strong>Nenhum histórico disponível</strong>
+                    </p>
+                </div>`
+                return;
+            }
+
+            _json.forEach(item => {
+                let _list = '';
+
+                if (Object.keys(item.changes).length > 0)
+                {
+                    _list = '<h6 class="dark:text-white text-slate-800">Itens Modificados</h6>';
+
+                    _list += '<ul class="list-disc">';
+                        Object.keys(item.changes).forEach(change => {
+                            _list += `<li class="text-lime-600">${change}: ${item.changes[change]}</li>`;
+
+                        })
+                    _list += '</ul>';
+
+                }
+
+                $div.innerHTML = `
+                <div class="border-b-2 border-slate-500">
+                    <p>
+                        <strong>${item.taskName}</strong>
+                        ${ item.event }
+                        em
+                        ${ item.created_at }
+                    </p>
+                    ${_list}
+                </div>${$div.innerHTML}`
+            })
+        })
+    }
+
+    Array.from($historyBtn).forEach($btn => {
+        $btn.removeEventListener('click', ShowHistory)
+        $btn.addEventListener('click', ShowHistory)
     })
 }
 

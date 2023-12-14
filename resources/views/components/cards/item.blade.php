@@ -32,6 +32,11 @@
                 class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-md hidden my-2"
                 data-wrap=""
             >Mais</button>
+            <button
+                type="button"
+                class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-md my-2"
+                data-history="{{ $key }}"
+            >Histórico</button>
         </div>
 
         @if ($action === 'mark.as.done')
