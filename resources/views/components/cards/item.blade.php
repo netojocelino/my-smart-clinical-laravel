@@ -1,10 +1,11 @@
 @props([
-    'type' => 'block',
-    'title',
-    'description' => '...',
-    'link' => null,
     'action' => null,
     'date' => null,
+    'description' => '...',
+    'key' => '',
+    'link' => null,
+    'title',
+    'type' => 'block',
 ])
 
 
@@ -14,7 +15,7 @@
 <div class="scale-100 py-6 px-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
 @endif
 
-    <div class="">
+    <div>
 
         <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{ $title }}</h2>
 
@@ -29,7 +30,7 @@
         </div>
 
         @if ($action === 'mark.as.done')
-        <button type="button" class="px-4 py-2 font-semibold text-sm text-white rounded-none shadow-sm bg-lime-600 flex gap-2">
+        <button type="button" class="px-4 py-2 font-semibold text-sm text-white rounded-none shadow-sm bg-lime-600 flex gap-2" data-key="{{ $key ?? '' }}">
             <x-icons.svg type="done" />
             Concluir
         </button>
