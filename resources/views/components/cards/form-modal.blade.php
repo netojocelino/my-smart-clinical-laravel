@@ -1,7 +1,7 @@
 @props([
     'id' => 'component-unique',
     'title' => 'Ação perigosa',
-    'message' => 'Tem certeza que deseja realizar esta auteração?',
+    'message' => 'Tem certeza que deseja realizar esta alteração?',
     'continue' => 'Continuar',
     'cancel' => 'Cancelar',
 ])
@@ -150,6 +150,7 @@
                             }${$column.innerHTML}`
 
                             $modal.classList.add('hidden')
+                            onLoad()
                         } else {
                             alert(response.message)
                         }

@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
 <div class="grid md:grid-cols-1 gap-4 rounded-lg">
     <div class="flex p-3 rounded-lg gap-2 space-between">
         <div>
@@ -55,12 +53,15 @@
                 title="{{ $item->title }}"
                 date="{{ optional($item->completed_at)->format('d-m-Y  \à\s H:i') }}"
                 description="{{ $item->ShortDescription }}"
+                key="{{ $item->getKey() }}"
             />
         @empty
             <h4 class="text-xl font-semibold text-black dark:text-white">Sem cartões cadastrados</h4>
         @endforelse
     </div>
 </div>
+
+<x-cards.modal id="mark.as.done" />
 
 <x-cards.form-modal
     id="create_task"
@@ -76,5 +77,37 @@
         key="$TEMPLATE_KEY$"
     />
 </div>
+
+
+@push('pre_js')
+<script>
+function onLoad()
+{
+    const $markAsDoneBtns = document.querySelectorAll('[data-action="mark.as.done"]')
+
+    function MarkAsDoneAction ()
+    {
+        const $prompt = document.getElementById(this.dataset.action)
+        $prompt.classList.remove('hidden')
+        const $key = this.dataset.key
+        // TODO: replace workaround
+        const _url = "{{ route('app.todo.item.mark-done', ['id' => 0]) }}".split('/0')[0] + '/' + $key
+
+        const $action = $prompt.querySelector(`[data-event-modal-active]`)
+        $action.dataset.eventModalActive = _url
+        $prompt.dataset.key = $key
+    }
+
+    Array.from($markAsDoneBtns).forEach($btn => {
+        $btn.removeEventListener('click', MarkAsDoneAction)
+        $btn.addEventListener('click', MarkAsDoneAction)
+    })
+
+}
+document.addEventListener('DOMContentLoaded', function () {
+    onLoad()
+})
+</script>
+@endpush
 
 @endsection

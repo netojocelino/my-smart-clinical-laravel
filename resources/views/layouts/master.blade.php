@@ -53,6 +53,7 @@
             </div>
         </div>
 
+        @stack('pre_js')
         @stack('js')
     </body>
 </html>
