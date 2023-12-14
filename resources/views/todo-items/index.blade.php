@@ -9,7 +9,7 @@
         <span class="text-amber-400">
             <x-icons.svg type="hourglass-split"  size="28" />
         </span>
-        <h2 class="text-xl font-semibold text-black dark:text-white">tarefas pendentes</h2>
+        <h2 class="text-xl font-semibold text-black dark:text-white">tarefas pendentes ({{$pendent->count()}})</h2>
 
 
         <button
@@ -43,7 +43,7 @@
         <span class="text-lime-400">
             <x-icons.svg type="done"  size="28" />
         </span>
-        <h2 class="text-xl font-semibold text-black dark:text-white">tarefas completas</h2>
+        <h2 class="text-xl font-semibold text-black dark:text-white">tarefas completas ({{$completed->count()}})</h2>
     </div>
 
     <div class="grid gap-4 overflow-y-scroll overflow-x-hidden max-h-96 max-w-full" name="done">
