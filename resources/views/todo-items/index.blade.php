@@ -179,6 +179,7 @@ function onLoad()
                 return;
             }
 
+            $div.innerHTML = '';
             _json.forEach(item => {
                 let _list = '';
 
